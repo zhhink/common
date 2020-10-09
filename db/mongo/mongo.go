@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -66,29 +67,23 @@ func (c *Collection) InsertOne(d interface{}) (*mongo.InsertOneResult, error) {
 // 	fmt.Println("Inserted multiple documents: ", insertManyResult.InsertedIDs)
 // }
 
-// UpdateOne update a item
-func (c *Collection) UpdateOne(filter interface{}, d interface{}) (*mongo.UpdateResult, error) {
+// UpdateOneSet update a item
+// d should be a map, struct or bson
+func (c *Collection) UpdateOneSet(filter interface{}, d interface{}) (*mongo.UpdateResult, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
-	return c.collection.UpdateOne(ctx, filter, d)
+
+	return c.collection.UpdateOne(ctx, filter, bson.D{{"$set", d}})
 }
 
-// FindOneStruct query a item from db.
-// filter should be a bson.M or ...
-// s should be a struc
-func (c *Collection) FindOneStruct(filter interface{}, s interface{}) error {
+// FindOneFill query a item from db.
+// filter should be a bson.M or bson.D
+// s should be a struct, map
+func (c *Collection) FindOneFill(filter interface{}, s interface{}) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
-	return c.collection.FindOne(ctx, filter).Decode(&s)
-}
-
-// FindOneMap query a item from db, fill in s
-// fileter is a bson, example fileter = bson.D{{"name": "yourname"}}
-// s is a map
-func (c *Collection) FindOneMap(filter interface{}, s interface{}) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-	return c.collection.FindOne(ctx, filter).Decode(&s)
+	err := c.collection.FindOne(ctx, filter).Decode(s)
+	return err
 }
 
 // todo
