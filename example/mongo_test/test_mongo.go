@@ -51,14 +51,14 @@ func main() {
 
 	fmt.Printf("find one struct: %+v\n", userMap)
 
-	uModify := user{
-		Name: "jdd0d",
-		Age:  40,
-	}
+	// uModify := user{
+	// 	Name: "jdd0d",
+	// 	Age:  40,
+	// }
 
-	uModifyMap := map[string]interface{}{
-		"email": "test@163.com",
-	}
+	// uModifyMap := map[string]interface{}{
+	// 	"email": "test@163.com",
+	// }
 
 	// _, err = col.UpdateOneSet(filter, uModify)
 	// if err != nil {
