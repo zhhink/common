@@ -60,12 +60,12 @@ func main() {
 		"email": "test@163.com",
 	}
 
-	_, err = col.UpdateOneSet(filter, uModify)
-	if err != nil {
-		fmt.Printf("update one err: %v", err)
-	}
+	// _, err = col.UpdateOneSet(filter, uModify)
+	// if err != nil {
+	// 	fmt.Printf("update one err: %v", err)
+	// }
 
-	_, err = col.UpdateOneSet(filter, uModifyMap)
+	// _, err = col.UpdateOneSet(filter, uModifyMap)
 
 	// _, err = col.DeleteMany(bson.D{})
 	// _, err = col.DeleteOne(filter)
