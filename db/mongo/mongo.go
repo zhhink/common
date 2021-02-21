@@ -4,7 +4,6 @@ import (
 	"context"
 	"time"
 
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -67,14 +66,15 @@ func (c *Collection) InsertOne(d interface{}) (*mongo.InsertOneResult, error) {
 // 	fmt.Println("Inserted multiple documents: ", insertManyResult.InsertedIDs)
 // }
 
+// todo
 // UpdateOneSet update a item
 // d should be a map, struct or bson
-func (c *Collection) UpdateOneSet(filter interface{}, d interface{}) (*mongo.UpdateResult, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
+// func (c *Collection) UpdateOneSet(filter interface{}, d interface{}) (*mongo.UpdateResult, error) {
+// 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+// 	defer cancel()
 
-	return c.collection.UpdateOne(ctx, filter, bson.D{{"$set", d}})
-}
+// 	return c.collection.UpdateOne(ctx, filter, bson.D{{"$set", d}})
+// }
 
 // FindOneFill query a item from db.
 // filter should be a bson.M or bson.D
